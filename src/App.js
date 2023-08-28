@@ -1,11 +1,15 @@
 import React from "react";
 import Header from "./components/Header";
+import Applications from "./components/Applications";
 
 class App extends React.Component {
     render() {
         return(
-            <div className="header">
-                <Header title="Hello world" ></Header>
+            <div>
+                <Header title="Interview Tracker" />
+                <main>
+                    <Applications />
+                </main>
             </div>
         )
     }

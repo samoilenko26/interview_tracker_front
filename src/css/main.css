@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:ital,wght@0,600;1,300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fff;
+    color: #000000;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.header {
+    background-color: #ffffff;
+    border-bottom: solid #e400c9;
+    color: #e400c9;
+    padding: 20px 10%;
+    font-family: 'Abril Fatface', cursive;;
+    font-size: x-large;
+
+}
+
+main {
+    margin: 50px 100px;
+    width: 50%;
+    float: left;
+}
+
+main .application{
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgb(255,247,255);
+    background: radial-gradient(circle, rgba(255,247,255,1) 7%, rgba(255,255,255,1) 68%);
+    border-radius: 15px;
+    border: solid #e400c9;
+    cursor: pointer;
+    transition: transform .3s;
+    display: flex;
+    align-items: center;
+}
+
+main .application:hover {
+    transform: scale(1.03)
+}
+
+main .app-icon {
+
+    border: solid #000000;
+    border-radius: 50%;
+    border-width: 0.01px;
+    color: #424242;
+    transform: scale(3.5);
+    margin: 25px;
+}
+
+
