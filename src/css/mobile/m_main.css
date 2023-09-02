@@ -6,29 +6,30 @@
     padding: 0;
 }
 
-@media (min-width: 1128px) {
+@media (max-width: 1128px) {
     .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: solid #fcf4ff;
         color: #AC00E1;
-        padding: 15px 20px;
+        padding: 15px 0px;
         font-family: 'Abril Fatface', cursive;
         background: radial-gradient(circle, rgba(255,247,255,1) 7%, rgba(255,255,255,1) 68%);
     }
     
     .logo {
         font-size: 20px;
+        text-align: center;
         font-weight: bold;
-        padding-left: 15%;
+        padding-left: 10%;
     }
 
     .options {
         display: flex;
-        font-family: 'Open Sans', sans-serif;
         font-size: 15px;
-        padding-right: 15%;
+        font-family: 'Open Sans', sans-serif;
+        padding-right: 10%;
     }
 
     .option {

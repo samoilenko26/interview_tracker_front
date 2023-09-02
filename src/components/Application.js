@@ -51,7 +51,6 @@ class Application extends React.Component {
                     <AppElement element_type="job_title" element_name="Job Title" element_body={this.state.job_title} />
                     <AppElement element_type="status" element_name="Status" element_body={this.state.status} status_color={this.state.status_color} />
                     <AppElement element_type="attractiveness_scale" element_name="Attractiveness Scale" scale={this.state.attractiveness_scale} />
-
                 </div>
             </div>
         )
