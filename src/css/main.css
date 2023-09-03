@@ -11,24 +11,24 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: solid #fcf4ff;
-        color: #AC00E1;
+        border-bottom: solid #f5f4ff;
+        /* color: #AC00E1; */
         padding: 15px 20px;
-        font-family: 'Abril Fatface', cursive;
-        background: radial-gradient(circle, rgba(255,247,255,1) 7%, rgba(255,255,255,1) 68%);
+        font-family: 'Open Sans', sans-serif;
+        /* background: radial-gradient(circle, rgba(255,247,255,1) 7%, rgba(255,255,255,1) 68%); */
+        background: radial-gradient(circle, rgba(247,247,255,1) 7%, rgba(255,255,255,1) 68%);
     }
     
     .header .logo {
         font-size: 20px;
         padding-left: 15%;
         text-decoration: none;
-        color: #AC00E1;
-
+        /* color: #AC00E1; */
+        font-family: 'Abril Fatface', cursive;
     }
 
     .options {
         display: flex;
-        font-family: 'Open Sans', sans-serif;
         font-size: 15px;
         padding-right: 15%;
     }
@@ -44,7 +44,7 @@
     }
 
     body {
-        background-color: #fff;
+        /* background-color: #fff; */
         color: #222;
         font-family: 'Open Sans', sans-serif;
         font-weight: 300;

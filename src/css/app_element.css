@@ -13,10 +13,11 @@
         position: relative;
         margin-bottom: 20px;
         padding: 10px;
-        background: rgb(255, 247, 255);
-        background: radial-gradient(circle, rgba(255, 247, 255, 1) 7%, rgba(255, 255, 255, 1) 68%);
+        /* background: rgb(248, 247, 255); */
+        /* background: radial-gradient(circle, rgba(255, 247, 255, 1) 7%, rgba(255, 255, 255, 1) 68%); */
+        background: radial-gradient(circle, rgba(247,247,255,1) 7%, rgba(255,255,255,1) 68%);
         border-radius: 15px;
-        border: solid #fcf4ff;
+        border: solid #f5f4ff;
         cursor: pointer;
         transition: transform .3s;
         height: 120px;
@@ -30,7 +31,7 @@
 
     main .app-icon {
         position: absolute;
-        width: 20px;
+        width: 18px;
         height: auto;
         top: 50%;
         left: 10%;
@@ -66,28 +67,27 @@
     }
 
 
-    main .application .company_name p,
-    main .application .job_title p,
-    main .application .status p,
-    main .application .attractiveness_scale p {
+    main .application .company_name .element_header,
+    main .application .job_title .element_header,
+    main .application .status .element_header,
+    main .application .attractiveness_scale .element_header {
         font-size: 10px;
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: 3px;
+        color: #000000;
     }
 
-    main .application .status p {
-        margin-bottom: 3px;
+    main .application .company_name .element_text,
+    main .application .job_title .element_text {
+        font-size: 15px;
     }
 
     main .application .status .status_body {
-        font-size: 12px;
-        padding: 5px;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 3px;
         width: 110px;
         border-radius: 6px;
-    }
-
-    main .application .status .status_body {
-        background-color: #F2005D
     }
 
     main .application .attractiveness_scale .star {

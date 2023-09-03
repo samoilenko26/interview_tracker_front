@@ -1,20 +1,20 @@
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
-import { Link } from 'react-router-dom'; // Import the Link component
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
     render() {
         return (
             <div className="header">
                 <Link to="/" className="logo" >
-                    <p >Interview Tracker</p>
+                    Interview Tracker
                 </Link>
                 <div className="options">
                     <div className="option">
-                        Log out
-                        <span className="logout_wrapper">
+                        <Link to="/" className="btn btn-outline-primary btn-sm">
+                            Log out
                             <FiLogOut className="logout_icon" />
-                        </span>
+                        </Link>
                     </div>
                 </div>
             </div>

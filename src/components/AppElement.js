@@ -9,7 +9,7 @@ class AppElement extends React.Component {
             }
             return(
                 <div className={this.props.element_type}>
-                    <p>{this.props.element_name}</p>
+                    <p className="element_header">{this.props.element_name}</p>
                     <p className="status_body" style={statusBackgroundStyle}>{this.props.element_body}</p>
                 </div> 
             )
@@ -24,7 +24,7 @@ class AppElement extends React.Component {
             }
             return(
                 <div className={this.props.element_type}>
-                    <p>{this.props.element_name}</p>
+                    <p className="element_header">{this.props.element_name}</p>
                     <div>
                         {stars.map((star, index) => (
                             <span key={index}>{star}</span>
@@ -35,8 +35,8 @@ class AppElement extends React.Component {
         } else {
             return(
                 <div className={this.props.element_type}>
-                    <p>{this.props.element_name}</p>
-                    <h3>{this.props.element_body}</h3>
+                    <p className="element_header">{this.props.element_name}</p>
+                    <p className="element_text">{this.props.element_body}</p>
                 </div> 
             )
         }
