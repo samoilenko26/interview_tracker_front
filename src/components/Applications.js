@@ -9,15 +9,8 @@ class Applications extends React.Component {
             "job_title": "Engineering Manager",
             "status": "Recruter interview",
             "attractiveness_scale": 1,
-            "status_category": "red"
-        },
-        {
-            "id": 4,
-            "company_name": "Zalando ZalandoZalando",
-            "job_title": "Senior Python Developer",
-            "status": "Home assignment",
-            "attractiveness_scale": 4,
-            "status_category": "blue"
+            "status_category": "red",
+            "official_website": "klarna.com"
         },
         {
             "id": 11,
@@ -25,7 +18,8 @@ class Applications extends React.Component {
             "job_title": "Team Lead",
             "status": "Offer",
             "attractiveness_scale": 1,
-            "status_category": "green"
+            "status_category": "green",
+            "official_website": "apple.com"
         },
         {
             "id": 14,
@@ -33,7 +27,8 @@ class Applications extends React.Component {
             "job_title": "CTO",
             "status": "Tech Test",
             "attractiveness_scale": 2,
-            "status_category": "yellow"
+            "status_category": "yellow",
+            "official_website": "google.com"
         },
         {
             "id": 16,
@@ -41,7 +36,8 @@ class Applications extends React.Component {
             "job_title": "Middle Project Manager",
             "status": "Behavioral interview",
             "attractiveness_scale": 3,
-            "status_category": "orange"
+            "status_category": "orange",
+            "official_website": "amazon.com"
         },
         {
             "id": 19,
@@ -49,7 +45,17 @@ class Applications extends React.Component {
             "job_title": "Senior Project Manager",
             "status": "PreOffer",
             "attractiveness_scale": 5,
-            "status_category": "purple"
+            "status_category": "purple",
+            "official_website": "intel.com"
+        },
+        {
+            "id": 4,
+            "company_name": "Zalando ZalandoZalando",
+            "job_title": "Senior Python Developer",
+            "status": "Home assignment",
+            "attractiveness_scale": 4,
+            "status_category": "blue",
+            "official_website": "zalando.de"
         }
     ]
 

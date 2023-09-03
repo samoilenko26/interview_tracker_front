@@ -39,13 +39,40 @@ class Application extends React.Component {
             status: this.app.status.length > this.maxLength ? this.app.status.slice(0, this.maxLength) + '..' : this.app.status,
             status_color: statusBackgroundColor,
             attractiveness_scale: this.app.attractiveness_scale,
+            logoData: null,
         };
     }
 
+    componentDidMount(props) {
+        const domain = this.app.official_website;
+
+        fetch(`https://logo.clearbit.com/${domain}`)
+            .then((response) => {
+            if (response.ok) {
+                // If the response is successful, set the logo data in state
+                return response.blob();
+            } else {
+                // Handle the case when the request fails, e.g., use a default icon
+                console.error('Failed to fetch logo.');
+            }
+            })
+            .then((logoData) => {
+            this.setState({ logoData });
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+            });
+    }
+
     render() {
+        
         return(
             <div className="application">
+                {this.state.logoData ? (
+                <img src={URL.createObjectURL(this.state.logoData)} alt="Company Logo" className="app-icon" />
+                ) : (
                 <BsBuildings className="app-icon" />
+                )}
                 <div className="app-info">
                     <AppElement element_type="company_name" element_name="Company name" element_body={this.state.company_name} />
                     <AppElement element_type="job_title" element_name="Job Title" element_body={this.state.job_title} />

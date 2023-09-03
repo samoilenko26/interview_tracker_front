@@ -29,6 +29,8 @@
     
     main .app-icon {
         position: absolute;
+        width: 20px;
+        height: auto;
         top: 50%;
         left: 10%;
         transform: translate(-10%, -50%) scale(2.0);
