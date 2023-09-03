@@ -1,5 +1,6 @@
 import React from "react";
 import Application from "./Application";
+import { Link } from 'react-router-dom';
 
 class Applications extends React.Component {
     apps = [
@@ -63,11 +64,11 @@ class Applications extends React.Component {
         if (this.apps.length > 0)
             return(
                 <div>
-                    {
-                        this.apps.map((el) => (
+                    {this.apps.map((el) => (
+                        <Link to={`/applications/${el.id}`} key={el.id}>
                             <Application key={el.id} application={el} />
-                        ))
-                    }
+                        </Link>
+                    ))}
                 </div>
             )
         else

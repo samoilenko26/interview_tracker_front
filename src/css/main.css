@@ -18,10 +18,12 @@
         background: radial-gradient(circle, rgba(255,247,255,1) 7%, rgba(255,255,255,1) 68%);
     }
     
-    .logo {
+    .header .logo {
         font-size: 20px;
-        font-weight: bold;
         padding-left: 15%;
+        text-decoration: none;
+        color: #AC00E1;
+
     }
 
     .options {

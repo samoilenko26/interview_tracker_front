@@ -20,6 +20,7 @@
         cursor: pointer;
         transition: transform .3s;
         height: 120px;
+        color: #222;
     }
     
     main .application:hover {
