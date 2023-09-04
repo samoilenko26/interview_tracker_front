@@ -15,7 +15,7 @@ class App extends React.Component {
                         <Routes>
                             <Route path="/" element={<Applications />} />
                             <Route path="/applications/:applicationId" element={<ApplicationDetails />} />
-                        </Routes>
+                      </Routes>
                     </main>
                     <Footer />
                 </div>
