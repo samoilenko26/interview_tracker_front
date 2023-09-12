@@ -61,8 +61,9 @@ class Applications extends React.Component {
     ]
 
     render() {
+
         if (this.apps.length > 0)
-            return(
+            return (
                 <div>
                     {this.apps.map((el) => (
                         <Link to={`/applications/${el.id}`} key={el.id}>
@@ -72,10 +73,10 @@ class Applications extends React.Component {
                 </div>
             )
         else
-            return(<div className="application">
+            return (<div className="application">
                 <h3>Here will be displayed your applications. Click on the Create button for a new application</h3>
             </div>)
-                    
+
     }
 }
 
