@@ -115,4 +115,10 @@
         height: 40px; /* Adjust the height as needed */
       }
 
+    .delete-timeline {
+        margin-left: 10px;
+        color: #5f5f5f;
+        font-size: 20px;
+    }
+
 }

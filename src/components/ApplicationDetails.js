@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Code } from 'react-content-loader'
 import { DatePicker } from "antd";
 import dayjs from 'dayjs';
+import { BsFillTrashFill } from "react-icons/bs";
 
 
 function ApplicationDetails() {
@@ -64,11 +65,11 @@ function ApplicationDetailsContent({ applicationData }) {
   };
 
   const handleTimelineValueChange = (date, index) => {
-    const formattedDate = dayjs(date).format('MMMM D, YYYY, HH:mm:ss [UTC]');
-  
+    const formattedDate = dayjs(date).format('MMMM D, YYYY');
+
     const updatedTimelines = [...formData.timelines];
     updatedTimelines[index].value = formattedDate;
-  
+
     setFormData({
       ...formData,
       timelines: updatedTimelines,
@@ -78,6 +79,26 @@ function ApplicationDetailsContent({ applicationData }) {
   const handleTimelineNameChange = (event, index) => {
     const updatedTimelines = [...formData.timelines];
     updatedTimelines[index].name = event.target.value;
+    setFormData({
+      ...formData,
+      timelines: updatedTimelines,
+    });
+  };
+
+  const handleDeleteTimeline = (index) => {
+    const updatedTimelines = [...formData.timelines];
+    updatedTimelines.splice(index, 1); // Remove the timeline at the specified index
+    setFormData({
+      ...formData,
+      timelines: updatedTimelines,
+    });
+  };
+
+  const handleAddTimeline = () => {
+    // Create a new empty timeline and add it to the list
+    const today = dayjs().format('MMMM D, YYYY');
+    const updatedTimelines = [...formData.timelines];
+    updatedTimelines.push({ name: '', value: today });
     setFormData({
       ...formData,
       timelines: updatedTimelines,
@@ -178,32 +199,39 @@ function ApplicationDetailsContent({ applicationData }) {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Timelines</Form.Label>
+          <Form.Label>Timeline</Form.Label>
           {formData.timelines.map((timeline, index) => (
-
             <div key={index} className="mb-3">
               <div className="timeline-row">
                 <div className="timeline-name">
                   <Form.Control
                     type="text"
-                    placeholder="Timeline Name"
+                    placeholder="Event / Interview name"
                     value={timeline.name}
                     onChange={(event) => handleTimelineNameChange(event, index)}
                     className="timeline-name"
                   />
                 </div>
                 <DatePicker
-                  defaultValue={dayjs(timeline.value, 'MMMM D, YYYY, HH:mm:ss [UTC]')}
+                  defaultValue={dayjs(timeline.value, 'MMMM D, YYYY')}
                   format="DD MMMM YYYY, dddd"
                   className="custom-datepicker"
                   style={{ width: '100%', height: '40px' }}
                   onChange={(date) => handleTimelineValueChange(date, index)}
-
                 />
+                <div className="delete-timeline">
+                  <BsFillTrashFill
+                    onClick={() => handleDeleteTimeline(index)}
+                  />
+                </div>
               </div>
             </div>
           ))}
         </Form.Group>
+        {/* Button to add a new timeline */}
+        <Button variant="primary" onClick={handleAddTimeline}>
+          Add Timeline
+        </Button>
 
 
         {/* Add similar Form.Group elements for other application details */}
