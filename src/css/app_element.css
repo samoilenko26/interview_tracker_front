@@ -94,4 +94,25 @@
         font-size: 19px;
     }
 
+    .custom-datepicker .ant-picker-clear {
+        display: none;
+      }
+
+    /* Add this CSS to your project's stylesheet */
+    .timeline-row {
+        display: flex;
+        align-items: center; /* Vertically center items */
+        margin-bottom: 10px; /* Add margin between rows */
+      }
+      
+      .timeline-name {
+        flex: 1; /* Allow the name to take up equal space */
+        margin-right: 10px; /* Add spacing between name and date */
+      }
+      
+      .custom-datepicker {
+        flex: 1; /* Allow the date picker to take up equal space */
+        height: 40px; /* Adjust the height as needed */
+      }
+
 }

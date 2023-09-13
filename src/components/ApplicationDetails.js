@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useParams } from 'react-router-dom';
 import { Code } from 'react-content-loader'
+import { DatePicker } from "antd";
+import dayjs from 'dayjs';
+
 
 function ApplicationDetails() {
   const { applicationId } = useParams();
@@ -44,25 +47,167 @@ function ApplicationDetails() {
 }
 
 function ApplicationDetailsContent({ applicationData }) {
+  const [formData, setFormData] = useState(applicationData);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // You can handle the form submission here, e.g., send the updated data to the server
+    console.log('Updated Data:', formData);
+  };
+
+  const handleTimelineValueChange = (date, index) => {
+    const formattedDate = dayjs(date).format('MMMM D, YYYY, HH:mm:ss [UTC]');
+  
+    const updatedTimelines = [...formData.timelines];
+    updatedTimelines[index].value = formattedDate;
+  
+    setFormData({
+      ...formData,
+      timelines: updatedTimelines,
+    });
+  };
+
+  const handleTimelineNameChange = (event, index) => {
+    const updatedTimelines = [...formData.timelines];
+    updatedTimelines[index].name = event.target.value;
+    setFormData({
+      ...formData,
+      timelines: updatedTimelines,
+    });
+  };
+
   return (
     <div>
-      <p>Application ID: {applicationData.id}</p>
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Company name</Form.Label>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Company Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Company Name"
-            value={applicationData.company_name}
-            readOnly
+            name="company_name"
+            value={formData.company_name}
+            onChange={handleInputChange}
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
 
-        {/* Render other application details similarly */}
-        
+        <Form.Group className="mb-3">
+          <Form.Label>Job Title</Form.Label>
+          <Form.Control
+            type="text"
+            name="job_title"
+            value={formData.job_title}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Status</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.status}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Status Category</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.status_category}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Attractiveness Scale</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.attractiveness_scale}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Job description link</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.job_description_link}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Salary</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.salary}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Location</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.location}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>On site/Remote</Form.Label>
+          <Form.Control
+            type="text"
+            name="status"
+            value={formData.on_site_remote}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Timelines</Form.Label>
+          {formData.timelines.map((timeline, index) => (
+
+            <div key={index} className="mb-3">
+              <div className="timeline-row">
+                <div className="timeline-name">
+                  <Form.Control
+                    type="text"
+                    placeholder="Timeline Name"
+                    value={timeline.name}
+                    onChange={(event) => handleTimelineNameChange(event, index)}
+                    className="timeline-name"
+                  />
+                </div>
+                <DatePicker
+                  defaultValue={dayjs(timeline.value, 'MMMM D, YYYY, HH:mm:ss [UTC]')}
+                  format="DD MMMM YYYY, dddd"
+                  className="custom-datepicker"
+                  style={{ width: '100%', height: '40px' }}
+                  onChange={(date) => handleTimelineValueChange(date, index)}
+
+                />
+              </div>
+            </div>
+          ))}
+        </Form.Group>
+
+
+        {/* Add similar Form.Group elements for other application details */}
+
         <Button variant="primary" type="submit">
           Submit
         </Button>
@@ -70,5 +215,6 @@ function ApplicationDetailsContent({ applicationData }) {
     </div>
   );
 }
+
 
 export default ApplicationDetails;
