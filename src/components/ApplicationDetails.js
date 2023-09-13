@@ -6,6 +6,7 @@ import { Code } from 'react-content-loader'
 import { DatePicker } from "antd";
 import dayjs from 'dayjs';
 import { BsFillTrashFill } from "react-icons/bs";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 function ApplicationDetails() {
@@ -98,7 +99,7 @@ function ApplicationDetailsContent({ applicationData }) {
     // Create a new empty timeline and add it to the list
     const today = dayjs().format('MMMM D, YYYY');
     const updatedTimelines = [...formData.timelines];
-    updatedTimelines.push({ name: '', value: today });
+    updatedTimelines.push({ name: '', value: '' });
     setFormData({
       ...formData,
       timelines: updatedTimelines,
@@ -213,7 +214,7 @@ function ApplicationDetailsContent({ applicationData }) {
                   />
                 </div>
                 <DatePicker
-                  defaultValue={dayjs(timeline.value, 'MMMM D, YYYY')}
+                  defaultValue={timeline.value === '' ? null : dayjs(timeline.value, 'MMMM D, YYYY')}
                   format="DD MMMM YYYY, dddd"
                   className="custom-datepicker"
                   style={{ width: '100%', height: '40px' }}
@@ -229,8 +230,8 @@ function ApplicationDetailsContent({ applicationData }) {
           ))}
         </Form.Group>
         {/* Button to add a new timeline */}
-        <Button variant="primary" onClick={handleAddTimeline}>
-          Add Timeline
+        <Button className='add_new_timeline_button' variant="primary" onClick={handleAddTimeline}>
+          Add new <AiOutlinePlusCircle className='add_new_timeline_icon'/>
         </Button>
 
 

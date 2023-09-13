@@ -4,8 +4,10 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/main.css';
 import './css/app_element.css';
+import './css/app_details.css'
 import './css/mobile/m_main.css';
 import './css/mobile/m_app_element.css';
+
 import 'antd/dist/reset.css';
 
 
