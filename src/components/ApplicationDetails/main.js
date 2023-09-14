@@ -154,20 +154,25 @@ function ApplicationDetailsContent({ applicationData }) {
             name="company_name"
             value={inputValue}
             onChange={handleInputChange}
-            onBlur={() => setTimeout(() => setSuggestionSelected(true), 100)}
+            onBlur={() => setTimeout(() => setSuggestionSelected(true), 300)}
             autoComplete="off"
           />
           {suggestions.length > 0 && !suggestionSelected && (
-            <ul>
+            <div className="suggestion-dropdown">
               {suggestions.map((suggestion) => (
-                <li
+                <div
                   key={suggestion.domain}
+                  className="suggestion-item"
                   onClick={() => handleSuggestionClick(suggestion.name, suggestion.domain)}
                 >
-                  {suggestion.name}
-                </li>
+                  <div className="flex">
+                    <img src={suggestion.logo} alt={suggestion.name} />
+                    {suggestion.name}
+                  </div>
+                  <div className="text-gray-600 text-opacity-75">{suggestion.domain}</div>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </Form.Group>
 

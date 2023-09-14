@@ -87,14 +87,32 @@
     .suggestion-dropdown {
         position: absolute;
         z-index: 1000;
-        /* Adjust the z-index as needed */
         background-color: white;
         border: 1px solid #ccc;
         max-height: 200px;
-        /* Set a maximum height for the dropdown to enable scrolling if needed */
         overflow-y: auto;
-        /* Enable vertical scrolling if the content exceeds the maximum height */
+        width: 30%;
+        border-radius: 10px;
+    }
 
+    .suggestion-item {
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .suggestion-item:hover {
+        background-color: #6fa9ff;
+        border-radius: 5px;
+    }
+
+    .suggestion-item img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        border-radius: 4px;
     }
 
 
