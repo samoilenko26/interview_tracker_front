@@ -8,20 +8,21 @@ import dayjs from 'dayjs';
 import { BsFillTrashFill } from "react-icons/bs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
+import axios from 'axios';
+import debounce from 'lodash.debounce';
+
 
 function ApplicationDetails() {
   const { applicationId } = useParams();
   const [applicationData, setApplicationData] = useState(null);
 
   useEffect(() => {
-    // Define the bearer token
-    const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhPZThpM0FieWFxVGh4ZlBvR0FHdCJ9.eyImcm9sZXMiOlsidXNlciJdLCImZW1haWwiOiJnYTRsYS1zYWx0czBmQGljbG91ZC5jb20iLCJpc3MiOiJodHRwczovL2Rldi15ZHlhcTZkNzA2aG5wdGhvLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NGI3MWUxODNkZDRmYTU0NTc5OGFiZjQiLCJhdWQiOlsiaHR0cHM6Ly9oZWxsby13b3JsZC5leGFtcGxlLmNvbSIsImh0dHBzOi8vZGV2LXlkeWFxNmQ3MDZobnB0aG8udXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NDU1NTQwMywiZXhwIjoxNjk0NjQxODAzLCJhenAiOiJiaFBTZmJKZ1NuQ1ZYcE9ob0lOMHJNNmxnbUNFRWQ2VSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSIsImd0eSI6InBhc3N3b3JkIn0.ERSG8-MbgKj6U909S7O_yiMzTezwzU-Ev1HzmnL0_G0m-rqyKSooJsOiJAZrXv6kg3MY65IThwytf6S9XbH3_WGNm6QUmSJSXPhUEx3OOtUVYQL6mBJjuvUT2e8aHBT8mtcXy_Q_TScv9NLcCJW3ctdzN6WUz2gfj7ffPxOQOulRQaBGstcXCuuC5W19wnM0jwS7viWj3-0E59nvjjpANLGREpsJ4oL3ShQvmBx3oBUM-LMrFRFXCzv1RvUKWAh-5R-Hf1-mrEpogbsjcxorZwioenf93V8fSsG148zXZVuL_FCpMRGht8mMoK12d_gT46Yc6y7wv6hzZa0KbKegUQ'
-    // Make a GET request to your API with the Authorization header
+    const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhPZThpM0FieWFxVGh4ZlBvR0FHdCJ9.eyImcm9sZXMiOlsidXNlciJdLCImZW1haWwiOiJnYTRsYS1zYWx0czBmQGljbG91ZC5jb20iLCJpc3MiOiJodHRwczovL2Rldi15ZHlhcTZkNzA2aG5wdGhvLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NGI3MWUxODNkZDRmYTU0NTc5OGFiZjQiLCJhdWQiOlsiaHR0cHM6Ly9oZWxsby13b3JsZC5leGFtcGxlLmNvbSIsImh0dHBzOi8vZGV2LXlkeWFxNmQ3MDZobnB0aG8udXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NDY0NTc2NCwiZXhwIjoxNjk0NzMyMTY0LCJhenAiOiJiaFBTZmJKZ1NuQ1ZYcE9ob0lOMHJNNmxnbUNFRWQ2VSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgYWRkcmVzcyBwaG9uZSIsImd0eSI6InBhc3N3b3JkIn0.H4iw3AmMtTaTqo06GbWS-0OKXbzM-kFu9qX4xyGgnb0x0YRBTw8J8DlmJL6ZqoKVmnRsuN-K-QOZyq0A3oX34CrTZCztrNK75C7AIvrh-WDZmA49LH3IlnseaB7tdjoW6MUnyWwE4bZio6v3Mrmo56Pq9QWtW89NLuNfmB8rLFmLIQ9iM3zhKN27dmcFqpkj4dPTaP7BeyG7ae2CsLrypug5JZKT0Y81x3qG24SKthMZVYp9qiAddoYe4YlHTjNDZaNgVQow4gddCC4dRX0CPia2rogHGBdelKf2_UJZGxuu8g5Lgz2hDVwYUEinoDHJ-2qVqP03FXXTznH-K3g8HA'
     fetch(`http://127.0.0.1:8000/api/applications/${applicationId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json', // You may need to set the content type
+        'Content-Type': 'application/json',
       },
     })
       .then((response) => response.json())
@@ -50,6 +51,42 @@ function ApplicationDetails() {
 
 function ApplicationDetailsContent({ applicationData }) {
   const [formData, setFormData] = useState(applicationData);
+  const [suggestions, setSuggestions] = useState([]);
+  const [inputValue, setInputValue] = useState(applicationData.company_name || '');
+  const [suggestionSelected, setSuggestionSelected] = useState(false);
+
+  const fetchSuggestions = async (query) => {
+    try {
+      if (query.trim() !== '') {
+        const response = await axios.get(
+          `https://autocomplete.clearbit.com/v1/companies/suggest?query=${query}`
+        );
+        const data = response.data;
+        setSuggestions(data);
+      } else {
+        // Clear suggestions if query is empty
+        setSuggestions([]);
+      }
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+    }
+  };
+
+  const handleSuggestionClick = (selectedName, selectedDomain) => {
+    // Update the applicationData state with the selected domain
+    setFormData({
+      ...formData,
+      official_website: selectedDomain,
+    });
+
+    // Update the input value to the selected suggestion
+    setInputValue(selectedName);
+
+    // Hide suggestions
+    setSuggestionSelected(true);
+  };
+
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -57,11 +94,13 @@ function ApplicationDetailsContent({ applicationData }) {
       ...formData,
       [name]: value,
     });
+    setInputValue(value);
+    debouncedFetchSuggestions(value);
+    setSuggestionSelected(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // You can handle the form submission here, e.g., send the updated data to the server
     console.log('Updated Data:', formData);
   };
 
@@ -97,7 +136,6 @@ function ApplicationDetailsContent({ applicationData }) {
 
   const handleAddTimeline = () => {
     // Create a new empty timeline and add it to the list
-    const today = dayjs().format('MMMM D, YYYY');
     const updatedTimelines = [...formData.timelines];
     updatedTimelines.push({ name: '', value: '' });
     setFormData({
@@ -114,9 +152,23 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Control
             type="text"
             name="company_name"
-            value={formData.company_name}
+            value={inputValue}
             onChange={handleInputChange}
+            onBlur={() => setTimeout(() => setSuggestionSelected(true), 100)}
+            autoComplete="off"
           />
+          {suggestions.length > 0 && !suggestionSelected && (
+            <ul>
+              {suggestions.map((suggestion) => (
+                <li
+                  key={suggestion.domain}
+                  onClick={() => handleSuggestionClick(suggestion.name, suggestion.domain)}
+                >
+                  {suggestion.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -143,7 +195,7 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Label>Status Category</Form.Label>
           <Form.Control
             type="text"
-            name="status"
+            name="status_category"
             value={formData.status_category}
             onChange={handleInputChange}
           />
@@ -153,7 +205,7 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Label>Attractiveness Scale</Form.Label>
           <Form.Control
             type="text"
-            name="status"
+            name="attractiveness_scale"
             value={formData.attractiveness_scale}
             onChange={handleInputChange}
           />
@@ -163,7 +215,7 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Label>Job description link</Form.Label>
           <Form.Control
             type="text"
-            name="status"
+            name="job_description_link"
             value={formData.job_description_link}
             onChange={handleInputChange}
           />
@@ -173,7 +225,7 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Label>Salary</Form.Label>
           <Form.Control
             type="text"
-            name="status"
+            name="salary"
             value={formData.salary}
             onChange={handleInputChange}
           />
@@ -183,7 +235,7 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Label>Location</Form.Label>
           <Form.Control
             type="text"
-            name="status"
+            name="location"
             value={formData.location}
             onChange={handleInputChange}
           />
@@ -193,7 +245,7 @@ function ApplicationDetailsContent({ applicationData }) {
           <Form.Label>On site/Remote</Form.Label>
           <Form.Control
             type="text"
-            name="status"
+            name="on_site_remote"
             value={formData.on_site_remote}
             onChange={handleInputChange}
           />
@@ -231,11 +283,8 @@ function ApplicationDetailsContent({ applicationData }) {
         </Form.Group>
         {/* Button to add a new timeline */}
         <Button className='add_new_timeline_button' variant="primary" onClick={handleAddTimeline}>
-          Add new <AiOutlinePlusCircle className='add_new_timeline_icon'/>
+          Add new <AiOutlinePlusCircle className='add_new_timeline_icon' />
         </Button>
-
-
-        {/* Add similar Form.Group elements for other application details */}
 
         <Button variant="primary" type="submit">
           Submit

@@ -2,60 +2,100 @@
 
     .custom-datepicker .ant-picker-clear {
         display: none;
-      }
+    }
 
     /* Add this CSS to your project's stylesheet */
     .timeline-row {
         display: flex;
-        align-items: center; /* Vertically center items */
-        margin-bottom: 10px; /* Add margin between rows */
-      }
-      
-      .timeline-name {
-        flex: 1; /* Allow the name to take up equal space */
-        margin-right: 10px; /* Add spacing between name and date */
+        align-items: center;
+        /* Vertically center items */
+        margin-bottom: 10px;
+        /* Add margin between rows */
+    }
 
-      }
-      
-      .custom-datepicker {
-        flex: 1; /* Allow the date picker to take up equal space */
-        height: 40px; /* Adjust the height as needed */
-      }
+    .timeline-name {
+        flex: 1;
+        /* Allow the name to take up equal space */
+        margin-right: 10px;
+        /* Add spacing between name and date */
 
-      .delete-timeline {
+    }
+
+    .custom-datepicker {
+        flex: 1;
+        /* Allow the date picker to take up equal space */
+        height: 40px;
+        /* Adjust the height as needed */
+    }
+
+    .delete-timeline {
         margin-left: 10px;
         color: #5f5f5f;
         font-size: 20px;
-      }
+    }
 
-      @keyframes tilt-shaking {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(10deg); }
-        50% { transform: rotate(0eg); }
-        75% { transform: rotate(-10deg); }
-        100% { transform: rotate(0deg); }
-      }
+    @keyframes tilt-shaking {
+        0% {
+            transform: rotate(0deg);
+        }
 
-      .delete-timeline:hover {
+        25% {
+            transform: rotate(10deg);
+        }
+
+        50% {
+            transform: rotate(0eg);
+        }
+
+        75% {
+            transform: rotate(-10deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+    .delete-timeline:hover {
         cursor: pointer;
         animation-name: tilt-shaking;
-        animation-duration: 0.5s; /* Adjust the duration as needed */
-        animation-timing-function: ease-in-out; /* Adjust the timing function as needed */
-        animation-iteration-count: infinite; /* Adjust the iteration count as needed */
-      }
+        animation-duration: 0.5s;
+        /* Adjust the duration as needed */
+        animation-timing-function: ease-in-out;
+        /* Adjust the timing function as needed */
+        animation-iteration-count: infinite;
+        /* Adjust the iteration count as needed */
+        color: #fd0d0d;
+    }
 
     .add_new_timeline_button {
         display: block;
         margin-bottom: 10px;
-        
+
     }
 
     .add_new_timeline_icon {
         font-size: 20px;
         margin-bottom: 3px;
     }
+
     .mb-3 {
-        font-size: 12px;
+        font-size: 13px;
     }
+
+    /* styles.css */
+    .suggestion-dropdown {
+        position: absolute;
+        z-index: 1000;
+        /* Adjust the z-index as needed */
+        background-color: white;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        /* Set a maximum height for the dropdown to enable scrolling if needed */
+        overflow-y: auto;
+        /* Enable vertical scrolling if the content exceeds the maximum height */
+
+    }
+
 
 }
