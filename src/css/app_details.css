@@ -70,12 +70,13 @@
 
     .add_new_timeline_button {
         display: block;
+        font-size: 15px;
         margin-bottom: 10px;
 
     }
 
     .add_new_timeline_icon {
-        font-size: 20px;
+        font-size: 17px;
         margin-bottom: 3px;
     }
 
@@ -110,7 +111,7 @@
 
     .suggestion-item img {
         width: 24px;
-        height: 24px;
+        height: auto;
         margin-right: 8px;
         border-radius: 4px;
     }

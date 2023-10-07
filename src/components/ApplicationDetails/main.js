@@ -7,9 +7,7 @@ import { DatePicker } from "antd";
 import dayjs from 'dayjs';
 import { BsFillTrashFill } from "react-icons/bs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-
-import axios from 'axios';
-import debounce from 'lodash.debounce';
+import CompanyNameInput from './CompanyNameInput'; 
 
 
 function ApplicationDetails() {
@@ -51,42 +49,7 @@ function ApplicationDetails() {
 
 function ApplicationDetailsContent({ applicationData }) {
   const [formData, setFormData] = useState(applicationData);
-  const [suggestions, setSuggestions] = useState([]);
-  const [inputValue, setInputValue] = useState(applicationData.company_name || '');
   const [suggestionSelected, setSuggestionSelected] = useState(false);
-
-  const fetchSuggestions = async (query) => {
-    try {
-      if (query.trim() !== '') {
-        const response = await axios.get(
-          `https://autocomplete.clearbit.com/v1/companies/suggest?query=${query}`
-        );
-        const data = response.data;
-        setSuggestions(data);
-      } else {
-        // Clear suggestions if query is empty
-        setSuggestions([]);
-      }
-    } catch (error) {
-      console.error('Error fetching suggestions:', error);
-    }
-  };
-
-  const handleSuggestionClick = (selectedName, selectedDomain) => {
-    // Update the applicationData state with the selected domain
-    setFormData({
-      ...formData,
-      official_website: selectedDomain,
-    });
-
-    // Update the input value to the selected suggestion
-    setInputValue(selectedName);
-
-    // Hide suggestions
-    setSuggestionSelected(true);
-  };
-
-  const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -94,9 +57,6 @@ function ApplicationDetailsContent({ applicationData }) {
       ...formData,
       [name]: value,
     });
-    setInputValue(value);
-    debouncedFetchSuggestions(value);
-    setSuggestionSelected(false);
   };
 
   const handleSubmit = (event) => {
@@ -147,34 +107,13 @@ function ApplicationDetailsContent({ applicationData }) {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Company Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="company_name"
-            value={inputValue}
-            onChange={handleInputChange}
-            onBlur={() => setTimeout(() => setSuggestionSelected(true), 300)}
-            autoComplete="off"
-          />
-          {suggestions.length > 0 && !suggestionSelected && (
-            <div className="suggestion-dropdown">
-              {suggestions.map((suggestion) => (
-                <div
-                  key={suggestion.domain}
-                  className="suggestion-item"
-                  onClick={() => handleSuggestionClick(suggestion.name, suggestion.domain)}
-                >
-                  <div className="flex">
-                    <img src={suggestion.logo} alt={suggestion.name} />
-                    {suggestion.name}
-                  </div>
-                  <div className="text-gray-600 text-opacity-75">{suggestion.domain}</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </Form.Group>
+        <CompanyNameInput
+          applicationData={applicationData}
+          suggestionSelected={suggestionSelected}
+          setSuggestionSelected={setSuggestionSelected}
+          setFormData={setFormData}
+          formData={formData}
+        />
 
         <Form.Group className="mb-3">
           <Form.Label>Job Title</Form.Label>
